@@ -1,0 +1,33 @@
+<h3 class="text-center" style="margin-bottom: 20px; "> La planing  Salle</h3>
+<table class="table table-striped text-center">
+    <thead class="thead-dark">
+        <tr>
+            <th>NomSalle</th>
+            <th>date</th>
+            <th>creneau horraire</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {{#each blocs}}
+        <tr>
+            <td>{{this.namesalle}}</td>
+            <td>{{this.date}}</td>
+            <td>{{this.crenauhr}}</td>
+
+
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+<div id="qrcode"></div>
+<script type="text/javascript">
+var pathArray = window.location.pathname.split('/');
+
+ var t= pathArray[3]+" "+ pathArray[4];
+new QRCode(document.getElementById("qrcode"),t);
+</script>
+
+

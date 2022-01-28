@@ -1,0 +1,60 @@
+<script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket=io();
+        var send=function(){
+            socket.emit('list',"txt");
+            
+        }
+        var datee;
+     
+        var receive=function(date){
+            let a=document.getElementById("myTable");
+           console.log(date);
+            datee=date;
+            
+              for (let r = 1; r < a.rows.length; r += 1) {
+                        if(a.rows[r].cells.item(0).innerHTML==date){
+                            a.rows[r].cells.item(3).innerHTML='<i class="fa fa-lock btn-outline-danger" ></i>';
+                        };  
+                                  
+
+              };
+
+ 
+        }
+        
+        
+        socket.on('list',receive);
+        
+        </script>
+<h3 class="text-center" style="margin-bottom: 20px; "> La Liste des Salles</h3>
+
+<table class="table table-striped text-center" id="myTable">
+        <tr>
+            <th>Nom</th>
+            <th>Capacité</th>
+            <th>Bloc</th>
+            <th>Etat actuel</th>
+
+            <th>Actions</th>
+        </tr>
+        {{#each list}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.capacite}}</td>
+            <td>{{this.blocName}}</td>
+            <td><i class="fa fa-unlock btn-outline-success" ></i></td>
+
+
+            <td>
+                <a class="btn btn-outline-dark btn-sm" href="/salle/{{this._id}}">Modifier</a>
+                <a class="btn btn-outline-dark btn-sm" href="/salle/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');">Supprimer</a>
+                <a class="btn btn-outline-dark btn-sm" href="/salle/planing/{{this._id}}/{{this.name}}">Planing de semaine</a>
+
+            </td>
+        </tr>
+        {{/each}}
+</table>
+<h3><a class="btn btn-outline-dark align-center btn-block" href="/salle"><i class="fa fa-plus"></i> Ajouter une Salle</a></h3>
+<a class="btn btn-outline-dark btn-block"  href="/bloc/list"><i class="fa fa-list-alt"></i> La Liste des Blocs</a>
+
